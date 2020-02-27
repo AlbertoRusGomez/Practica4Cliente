@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    //Al hacer clic en el botón instrucciones, mostraremos la información correspondiente.
     $("#instrucciones").on("click", function(event) {
         event.preventDefault();
 
@@ -15,14 +16,16 @@ $(document).ready(function() {
         )
     })
 
-
+    //Al hacer clic en el botón Cargar JSON, nos mostrará una tabla cuya información dependerá del input.
     $("#cargar").on("click", function(event) {
         event.preventDefault();
 
+        //Cargamos el JSON
         $.getJSON("pokemon.json", function(result) {
             var tabla = $("<br/><br/><table class='table'><thead><tr><th>ID</th><th>Nombre</th><th>Tipo</th></tr>");
             console.log(result);
 
+            //Si el input está vacío, mostramos todos los pokemons.
             if ($("#input").val() == "") {
                 $.each(result, function(i, pokemon) {
 
@@ -31,6 +34,7 @@ $(document).ready(function() {
                 })
             } else {
                 $.each(result, function(i, pokemon) {
+                    //Si ponemos un número en el input, nos mostrarán los pokemons hasta el número asignado, correspondiente al id.
                     if (i < $("#input").val()) {
                         tabla.append("<tr><td>" + pokemon.id + "</td><td>" + pokemon.name.english + "</td><td>" + pokemon.type + "</tr></thead></table>");
                     }
